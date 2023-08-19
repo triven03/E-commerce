@@ -49,7 +49,7 @@ Goals : Build Fake Store API that can be used with any type project that needs p
   - [Create Order](#create-order)
   - [Get logged user Order History](#get-logged-user-order-hostory)
   - [Get specific Order Detail ](#get-specific-order-detail)
-  - [Cart Schema ](#order-schema)
+  - [Order Schema ](#order-schema)
 
 Install dependencies
 
@@ -60,7 +60,7 @@ Install dependencies
 Start the server
 
 ```bash
-  node index.js
+  node server.js
 
 
 ## Environment Variables
@@ -584,20 +584,20 @@ You can remove Specific Cart Item by adding the `id`as a parameter: `/api/cart/{
 
 ## Order
 
-#### Endpoints for Cart
+#### Endpoints for Order
 
 ---
 
-Cart Routes:
+Order Routes:
 
 | @Route                       | @Type  | @access      | @desc                         |
 | ---------------------------- | ------ | ------------ | ----------------------------- |
-| /api/order/:cartId           | POST   | Private/User | Add product to cart           |
-| /api/order/all               | GET    | Private/User | Get logged user cart          |
+| /api/order/:cartId           | POST   | Private/User | create order                  |
+| /api/order/all               | GET    | Private/User | Get logged user order history |
 | /api/order/:orderId          | GET    | Private/User | Get specific Order Detail     |
 
 
-## Add product to cart
+## Create order
 
 You can Add product to cart by sending an object like the following to `/cart/`
 
@@ -619,7 +619,7 @@ You can Add product to cart by sending an object like the following to `/cart/`
       }
       // ...
     ],
-    shippingAddress: {
+    "shippingAddress": {
       "alias": "Home",
       "details": "985 Pinnickinnick Street",
       "phone": "615-827-2462",
@@ -627,9 +627,9 @@ You can Add product to cart by sending an object like the following to `/cart/`
       "state": "Delhi",
       "postalCode": "08872",
     },
-    paymentMethodType: "cash",
-    isPaid: false,
-    isDelivered:false,
+    "paymentMethodType": "cash",
+    "isPaid": false,
+    "isDelivered":false,
     "totalCartPrice": 120,
     "user": "63aeed564a116b073bc4d0cf",
     "createdAt": "2023-08-18T19:06:10.762Z",
@@ -639,10 +639,10 @@ You can Add product to cart by sending an object like the following to `/cart/`
 }
 ```
 
-## Get logged user cart
+## Get All order history
 
 ```bash
-[GET] http://localhost:3000/api/cart
+[GET] http://localhost:3000/api/order/all
 ```
 
 ```json
@@ -660,7 +660,7 @@ You can Add product to cart by sending an object like the following to `/cart/`
       }
       // ...
     ],
-    shippingAddress: {
+    "shippingAddress": {
       "alias": "Home",
       "details": "985 Pinnickinnick Street",
       "phone": "615-827-2462",
@@ -668,9 +668,9 @@ You can Add product to cart by sending an object like the following to `/cart/`
       "state": "Delhi",
       "postalCode": "08872",
     },
-    paymentMethodType: "cash",
-    isPaid: false,
-    isDelivered:false,
+    "paymentMethodType": "cash",
+    "isPaid": false,
+    "isDelivered":false,
     "totalCartPrice": 120,
     "user": "63aeed564a116b073bc4d0cf",
     "createdAt": "2023-08-18T19:06:10.762Z",
@@ -688,7 +688,7 @@ You can Add product to cart by sending an object like the following to `/cart/`
 You can remove Specific Cart Item by adding the `id`as a parameter: `/api/cart/{id}`
 
 ```bash
-[GET] http://localhost:3000/api/cart/"63b08822a8808232467c2993"
+[GET] http://localhost:3000/api/order/"63b08822a8808232467c2993"
 ```
 
 ```json
@@ -705,7 +705,7 @@ You can remove Specific Cart Item by adding the `id`as a parameter: `/api/cart/{
       }
       // ...
     ],
-    shippingAddress: {
+    "shippingAddress": {
       "alias": "Home",
       "details": "985 Pinnickinnick Street",
       "phone": "615-827-2462",
@@ -713,9 +713,9 @@ You can remove Specific Cart Item by adding the `id`as a parameter: `/api/cart/{
       "state": "Delhi",
       "postalCode": "08872",
     },
-    paymentMethodType: "cash",
-    isPaid: false,
-    isDelivered:false,
+    "paymentMethodType": "cash",
+    "isPaid": false,
+    "isDelivered":false,
     "totalCartPrice": 120,
     "user": "63aeed564a116b073bc4d0cf",
     "createdAt": "2023-08-18T19:06:10.762Z",
@@ -730,7 +730,15 @@ You can remove Specific Cart Item by adding the `id`as a parameter: `/api/cart/{
 
 | Attribute               | Type   |
 | ----------------------- | ------ |
-| cartItems               | arrays |
+| user                    |ObjectId|
+| cartItems               | Array  |
+| shippingAddress         | Object |
+| totalOrderPrice         | Number |
+| paymentMethodType       | String |
+| isPaid                  |Boolean | 
+| paidAt                  | Date   | 
+| isDelivered             |Boolean | 
+| deliveredAt             | Date   | 
 | totalCartPrice          | Number |
 
 ```
