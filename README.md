@@ -1,6 +1,3 @@
-# My Ecommerce Software Requirements
-
-Goals : Build Fake Store API that can be used with any type project that needs products, categories, authentication and users. you can use examples below to check how fakeStoreApi works!
 
 ## The features in the API :
 
